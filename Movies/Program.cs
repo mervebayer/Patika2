@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Movies.DbOperations;
+using Movies.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddDbContext<MovieStoreDbContext>(options => options.UseInMemor
 
 var app = builder.Build();
 using(var scope = app.Services.CreateScope()){
-    var services = scope.ServiceProvider;
+    var services = scope.ServiceProvider; 
     DataGenerator.Initialize(services);
 }
 // Configure the HTTP request pipeline.
@@ -25,8 +26,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
+app.UseMovie();
+app.GlobalLogging();
+//app.UseCustomExceptionMiddle();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
