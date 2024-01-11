@@ -7,3 +7,6 @@
 ![image](https://github.com/mervebayer/Movies/assets/56397630/f5126514-5c47-46f0-9beb-ac55d2f71472)
 ![image](https://github.com/mervebayer/Movies/assets/56397630/ba516ac9-d67d-45f7-9fe0-2c04e32f0801)
 
+Middleware:
+![image](https://github.com/mervebayer/Patika2/assets/56397630/7193292a-7bb8-481c-8e7a-eefb70dbefa6)
+
