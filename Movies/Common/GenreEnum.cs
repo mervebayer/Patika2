@@ -1,4 +1,4 @@
-namespace WebApi.Common
+namespace Movies.Common
 {
     public enum GenreEnum
     {
