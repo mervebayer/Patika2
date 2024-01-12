@@ -6,7 +6,7 @@ using AutoMapper;
 using Movies;
 using Movies.DbOperations;
 
-namespace WebApi.MovieOperations.CreateMovie
+namespace Movies.MovieOperations.CreateMovie
 {
     public class CreateMovieCommand
     {
@@ -26,13 +26,14 @@ namespace WebApi.MovieOperations.CreateMovie
             {
                 throw new InvalidOperationException("Movie is exist.");
             }
-            movie = new Movie(){
-                Title = Model.Title,
-                PublishDate = Model.PublishDate,
-                Language = Model.Language,
-                GenreId = Model.GenreId
+            movie = mapper.Map<Movie>(Model);
+            // movie = new Movie(){
+            //     Title = Model.Title,
+            //     PublishDate = Model.PublishDate,
+            //     Language = Model.Language,
+            //     GenreId = Model.GenreId
 
-            };
+            // };
         
             dbContext.Movies.Add(movie);
             dbContext.SaveChanges();

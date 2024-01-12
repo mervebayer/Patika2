@@ -6,7 +6,7 @@ using Movies.Common;
 using Movies.DbOperations;
 
 
-namespace WebApi.MovieOperations.GetById
+namespace Movies.MovieOperations.GetById
 {
     public class GetByIdQuery
     {

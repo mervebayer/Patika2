@@ -3,12 +3,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Movies.DbOperations;
 using Movies.Dtos;
-using WebApi.MovieOperations.CreateMovie;
-using WebApi.MovieOperations.DeleteMovie;
-using WebApi.MovieOperations.GetById;
-using WebApi.MovieOperations.GetMovies;
-using WebApi.MovieOperations.UpdateMovies;
-using static WebApi.MovieOperations.CreateMovie.CreateMovieCommand;
+using Movies.MovieOperations.CreateMovie;
+using Movies.MovieOperations.GetById;
+using Movies.MovieOperations.DeleteMovie;
+using Movies.MovieOperations.GetMovies;
+using Movies.MovieOperations.UpdateMovies;
+using static Movies.MovieOperations.CreateMovie.CreateMovieCommand;
+
 
 namespace Movies.Controllers;
 
