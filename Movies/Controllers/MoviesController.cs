@@ -1,4 +1,5 @@
 using System.Globalization;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Movies.DbOperations;
 using Movies.Dtos;
@@ -16,10 +17,12 @@ namespace Movies.Controllers;
 public class MoviesController : ControllerBase
 {
     private readonly MovieStoreDbContext context;
+    private readonly IMapper mapper;
 
-    public MoviesController(MovieStoreDbContext context)
+    public MoviesController(MovieStoreDbContext context,IMapper mapper)
     {
         this.context = context;
+        this.mapper = mapper;
     }
 
     [HttpGet]
@@ -73,7 +76,7 @@ public class MoviesController : ControllerBase
 
     [HttpPost]
     public IActionResult AddMovie([FromBody] CreateMovieModel movie){
-        CreateMovieCommand command = new(context)
+        CreateMovieCommand command = new(context,mapper)
         {
             Model = movie
         };

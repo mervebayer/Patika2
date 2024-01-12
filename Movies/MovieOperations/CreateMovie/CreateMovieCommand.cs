@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Movies;
 using Movies.DbOperations;
 
@@ -11,9 +12,11 @@ namespace WebApi.MovieOperations.CreateMovie
     {
         public CreateMovieModel Model { get; set; }
         private readonly MovieStoreDbContext dbContext;
-        public CreateMovieCommand(MovieStoreDbContext dbContext)
+        private readonly IMapper mapper;
+        public CreateMovieCommand(MovieStoreDbContext dbContext,IMapper mapper)
         {
             this.dbContext = dbContext;
+            this.mapper = mapper;
         }
 
         public void Handle()

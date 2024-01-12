@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Movies;
+using Movies.Common;
 using Movies.DbOperations;
-using WebApi.Common;
 
 namespace WebApi.MovieOperations.GetMovies
 {
