@@ -10,3 +10,6 @@
 ### Middleware:
 ![image](https://github.com/mervebayer/Patika2/assets/56397630/7193292a-7bb8-481c-8e7a-eefb70dbefa6)
 
+### FluentValidation
+![image](https://github.com/mervebayer/Patika2/assets/56397630/aac3754f-b33b-414a-8406-9afb09c3f36d)
+![image](https://github.com/mervebayer/Patika2/assets/56397630/411ff0dd-3ff0-451b-aba7-c8597affb3f4)
