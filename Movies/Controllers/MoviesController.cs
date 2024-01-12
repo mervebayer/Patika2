@@ -7,8 +7,11 @@ using Movies.MovieOperations.CreateMovie;
 using Movies.MovieOperations.GetById;
 using Movies.MovieOperations.DeleteMovie;
 using Movies.MovieOperations.GetMovies;
-using Movies.MovieOperations.UpdateMovies;
+using Movies.MovieOperations.UpdateMovie;
 using static Movies.MovieOperations.CreateMovie.CreateMovieCommand;
+using FluentValidation;
+using FluentValidation.Results;
+
 
 
 namespace Movies.Controllers;
@@ -20,7 +23,7 @@ public class MoviesController : ControllerBase
     private readonly MovieStoreDbContext context;
     private readonly IMapper mapper;
 
-    public MoviesController(MovieStoreDbContext context,IMapper mapper)
+    public MoviesController(MovieStoreDbContext context, IMapper mapper)
     {
         this.context = context;
         this.mapper = mapper;
@@ -29,7 +32,7 @@ public class MoviesController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        GetMoviesQuery query = new(context);
+        GetMoviesQuery query = new(context, mapper);
         var result = query.Handle();
         return Ok(result);
     }
@@ -38,24 +41,28 @@ public class MoviesController : ControllerBase
     public IActionResult GetById(int id)
     {
         MovieDetailViewModel result;
-        try{
-            GetByIdQuery query = new(context)
+        try
+        {
+            GetByIdQuery query = new(context, mapper)
             {
                 MovieId = id
             };
-            result =query.Handle();
+            GetByIdQueryValidator validator = new();
+            validator.ValidateAndThrow(query);
+            result = query.Handle();
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
             return BadRequest(ex.Message);
         }
-        return Ok(result);    
+        return Ok(result);
     }
 
     [HttpGet("GetByIdQuery")]
     public IActionResult GetByIdQuery([FromQuery] int id)
     {
-        var movie = context.Movies.FirstOrDefault(x=>x.Id == id);
-        if(movie == null)
+        var movie = context.Movies.FirstOrDefault(x => x.Id == id);
+        if (movie == null)
         {
             return NotFound();
         }
@@ -66,44 +73,84 @@ public class MoviesController : ControllerBase
     public IActionResult GetByParameter([FromQuery] string? Title, [FromQuery] string? Language)
     {
         var movies = context.Movies.AsQueryable();
-        if(!string.IsNullOrEmpty(Title)){
+        if (!string.IsNullOrEmpty(Title))
+        {
             movies = movies.Where(x => x.Title.Contains(Title, StringComparison.OrdinalIgnoreCase));
         }
-        if(!string.IsNullOrEmpty(Language)){
+        if (!string.IsNullOrEmpty(Language))
+        {
             movies = movies.Where(x => x.Language.Contains(Language, StringComparison.OrdinalIgnoreCase));
         }
-        return Ok( movies.ToList<Movie>());
+        return Ok(movies.ToList<Movie>());
     }
 
     [HttpPost]
-    public IActionResult AddMovie([FromBody] CreateMovieModel movie){
-        CreateMovieCommand command = new(context,mapper)
+    public IActionResult AddMovie([FromBody] CreateMovieModel movie)
+    {
+        CreateMovieCommand command = new(context, mapper);
+        try
         {
-            Model = movie
-        };
-        command.Handle();
+            command.Model = movie;
+            CreateMovieCommandValidator validator = new();
+            validator.ValidateAndThrow(command);
+            command.Handle();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        // ValidationResult result = validator.Validate(command);
+        // if(!result .IsValid){
+        //     foreach(var item in result.Errors){
+        //         Console.WriteLine("Özellik " + item.PropertyName + "- Error Message: "+ item.ErrorMessage);
+        //     }
+        // }
+        // else{
+        //     command.Handle();
+        // }
+
         return Ok();
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieModel movie){
-        UpdateMovieCommand command = new(context)
+    public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieModel movie)
+    {
+        try
         {
-            MovieId = id,
-            Model = movie
-        };
-        command.Handle();
-                return Ok();
+            UpdateMovieCommand command = new(context)
+            {
+                MovieId = id,
+                Model = movie
+            };
+            UpdateMovieCommandValidator validator = new();
+            validator.ValidateAndThrow(command);
+            command.Handle();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        return Ok();
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteMovie(int id){
-        DeleteMovieCommand command = new(context)
+    public IActionResult DeleteMovie(int id)
+    {
+        try
         {
-            MovieId = id
-        };
-        command.Handle();
-                return Ok();
+            DeleteMovieCommand command = new(context)
+            {
+                MovieId = id
+            };
+            DeleteMovieCommandValidator validator = new();
+            validator.ValidateAndThrow(command);
+            command.Handle();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        return Ok();
     }
 
     [HttpGet]
@@ -112,22 +159,23 @@ public class MoviesController : ControllerBase
     {
         var movie = context.Movies.AsQueryable();
 
-        if (!string.IsNullOrEmpty(sorting) && sorting.ToUpper(CultureInfo.InvariantCulture)== "TITLE")
+        if (!string.IsNullOrEmpty(sorting) && sorting.ToUpper(CultureInfo.InvariantCulture) == "TITLE")
         {
             movie = movie.OrderBy(x => x.Title);
         }
-        
+
         else if (!string.IsNullOrEmpty(sorting) && sorting.ToUpper(CultureInfo.InvariantCulture) == "LANGUAGE")
         {
             movie = movie.OrderBy(x => x.Language);
         }
 
-        else{
+        else
+        {
             return BadRequest();
         }
         context.SaveChanges();
         return Ok(movie.ToList());
     }
-    
+
 }
 

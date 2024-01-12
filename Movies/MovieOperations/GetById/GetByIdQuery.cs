@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Movies.Common;
 using Movies.DbOperations;
 
@@ -12,9 +13,11 @@ namespace Movies.MovieOperations.GetById
     {
         private readonly MovieStoreDbContext dbContext;
         public int MovieId {get; set;}
-        public GetByIdQuery(MovieStoreDbContext dbContext)
+        public readonly IMapper mapper;
+        public GetByIdQuery(MovieStoreDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
+            this.mapper = mapper;
         }
         public MovieDetailViewModel Handle()
         {
@@ -23,12 +26,12 @@ namespace Movies.MovieOperations.GetById
             {
                 throw new InvalidOperationException("Movie not found");
             }
-            MovieDetailViewModel vm= new();
-            _ = new MovieDetailViewModel();
-             vm.Title=movie.Title;
-             vm.Genre=((GenreEnum)movie.GenreId).ToString();
-             vm.PublishDate=movie.PublishDate.Date.ToString("dd/MM/yyy");
-             vm.Language=movie.Language;
+            MovieDetailViewModel vm= mapper.Map<MovieDetailViewModel>(movie);
+            // _ = new MovieDetailViewModel();
+            //  vm.Title=movie.Title;
+            //  vm.Genre=((GenreEnum)movie.GenreId).ToString();
+            //  vm.PublishDate=movie.PublishDate.Date.ToString("dd/MM/yyy");
+            //  vm.Language=movie.Language;
             return vm;
         }
     }
