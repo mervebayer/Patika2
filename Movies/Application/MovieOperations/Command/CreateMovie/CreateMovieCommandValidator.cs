@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
-using Movies.Application.MovieOperations.CreateMovie;
+using Movies.Application.MovieOperations.Command.CreateMovie;
 
-namespace Movies.Application.MovieOperations.CreateMovie;
+namespace Movies.Application.MovieOperations.Command.CreateMovie;
 
 public class CreateMovieCommandValidator : AbstractValidator<CreateMovieCommand>{
 

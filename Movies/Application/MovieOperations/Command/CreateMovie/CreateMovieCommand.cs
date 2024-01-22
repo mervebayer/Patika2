@@ -7,7 +7,7 @@ using Movies;
 using Movies.DbOperations;
 using Movies.Entities;
 
-namespace Movies.Application.MovieOperations.CreateMovie
+namespace Movies.Application.MovieOperations.Command.CreateMovie
 {
     public class CreateMovieCommand
     {

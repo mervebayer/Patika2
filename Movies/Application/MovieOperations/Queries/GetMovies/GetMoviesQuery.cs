@@ -8,7 +8,7 @@ using Movies.Common;
 using Movies.DbOperations;
 using Movies.Entities;
 
-namespace Movies.Application.MovieOperations.GetMovies
+namespace Movies.Application.MovieOperations.Queries.GetMovies
 {
     public class GetMoviesQuery
     {

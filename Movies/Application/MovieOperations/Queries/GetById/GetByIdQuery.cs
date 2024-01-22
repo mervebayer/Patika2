@@ -7,7 +7,7 @@ using Movies.Common;
 using Movies.DbOperations;
 
 
-namespace Movies.Application.MovieOperations.GetById
+namespace Movies.Application.MovieOperations.Queries.GetById
 {
     public class GetByIdQuery
     {

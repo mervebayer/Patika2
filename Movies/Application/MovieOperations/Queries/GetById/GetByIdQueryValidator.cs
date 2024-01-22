@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Movies.Application.MovieOperations.GetById;
+namespace Movies.Application.MovieOperations.Queries.GetById;
 
 public class GetByIdQueryValidator : AbstractValidator<GetByIdQuery>{
 
