@@ -3,14 +3,15 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Movies.DbOperations;
 using Movies.Dtos;
-using Movies.MovieOperations.CreateMovie;
-using Movies.MovieOperations.GetById;
-using Movies.MovieOperations.DeleteMovie;
-using Movies.MovieOperations.GetMovies;
-using Movies.MovieOperations.UpdateMovie;
-using static Movies.MovieOperations.CreateMovie.CreateMovieCommand;
+using Movies.Application.MovieOperations.CreateMovie;
+using Movies.Application.MovieOperations.GetById;
+using Movies.Application.MovieOperations.DeleteMovie;
+using Movies.Application.MovieOperations.GetMovies;
+using Movies.Application.MovieOperations.UpdateMovie;
+using static Movies.Application.MovieOperations.CreateMovie.CreateMovieCommand;
 using FluentValidation;
 using FluentValidation.Results;
+using Movies.Entities;
 
 
 

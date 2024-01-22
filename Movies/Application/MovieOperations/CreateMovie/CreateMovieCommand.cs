@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Movies;
 using Movies.DbOperations;
+using Movies.Entities;
 
-namespace Movies.MovieOperations.CreateMovie
+namespace Movies.Application.MovieOperations.CreateMovie
 {
     public class CreateMovieCommand
     {

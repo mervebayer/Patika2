@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Movies.Entities;
 namespace Movies.DbOperations;
 
 public class DataGenerator{
@@ -10,6 +11,18 @@ public class DataGenerator{
             if(context.Movies.Any()){
                 return;
             }
+            context.Genres.AddRange(
+                new Genre{
+                    Name ="Personal Growth"
+                },
+                new Genre{
+                    Name ="Science Fiction"
+                },
+                new Genre{
+                    Name ="Romance"
+                }
+            );
+
             context.Movies.AddRange(
                 new  Movie{
                   //  Id=1,

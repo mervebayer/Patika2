@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Movies.DbOperations;
 using Movies.Middlewares;
+using Movies.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MovieStoreDbContext>(options => options.UseInMemoryDatabase(databaseName: "MovieStoreDb"));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 var app = builder.Build();
 using(var scope = app.Services.CreateScope()){
     var services = scope.ServiceProvider; 
@@ -29,7 +31,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMovie();
 app.GlobalLogging();
-//app.UseCustomExceptionMiddle();
+app.UseCustomExceptionMiddle();
 app.UseAuthorization();
 
 

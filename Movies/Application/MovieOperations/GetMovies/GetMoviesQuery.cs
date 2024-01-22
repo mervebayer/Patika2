@@ -6,8 +6,9 @@ using AutoMapper;
 using Movies;
 using Movies.Common;
 using Movies.DbOperations;
+using Movies.Entities;
 
-namespace Movies.MovieOperations.GetMovies
+namespace Movies.Application.MovieOperations.GetMovies
 {
     public class GetMoviesQuery
     {

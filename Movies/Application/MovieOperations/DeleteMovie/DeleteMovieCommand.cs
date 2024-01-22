@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Movies.DbOperations;
 
-namespace Movies.MovieOperations.DeleteMovie
+namespace Movies.Application.MovieOperations.DeleteMovie
 {
     public class DeleteMovieCommand
     {

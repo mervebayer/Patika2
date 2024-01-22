@@ -1,7 +1,8 @@
 using AutoMapper;
-using Movies.MovieOperations.GetById;
-using Movies.MovieOperations.GetMovies;
-using static Movies.MovieOperations.CreateMovie.CreateMovieCommand;
+using Movies.Entities;
+using Movies.Application.MovieOperations.GetById;
+using Movies.Application.MovieOperations.GetMovies;
+using static Movies.Application.MovieOperations.CreateMovie.CreateMovieCommand;
 
 namespace Movies.Common
 {

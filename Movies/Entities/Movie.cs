@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace Movies;
+namespace Movies.Entities;
 
 public class Movie
 {
