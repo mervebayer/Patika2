@@ -13,13 +13,13 @@ public class DataGenerator{
             }
             context.Genres.AddRange(
                 new Genre{
-                    Name ="Personal Growth"
-                },
-                new Genre{
                     Name ="Science Fiction"
                 },
                 new Genre{
                     Name ="Romance"
+                },
+                new Genre{
+                    Name ="Personal Growth"
                 }
             );
 

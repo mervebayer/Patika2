@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Movies;
 using Movies.Common;
 using Movies.DbOperations;
@@ -23,7 +24,7 @@ namespace Movies.Application.MovieOperations.Queries.GetMovies
 
         public List<MoviesViewModel> Handle()
         {
-            var movieList = dbContext.Movies.OrderBy(x=>x.Id).ToList<Movie>();
+            var movieList = dbContext.Movies.Include(x => x.Genre).OrderBy(x=>x.Id).ToList<Movie>();
             List<MoviesViewModel> vm= mapper.Map<List<MoviesViewModel>>(movieList);
             // List<MoviesViewModel> vm= new List<MoviesViewModel>();
             // foreach(var movie in movieList)
