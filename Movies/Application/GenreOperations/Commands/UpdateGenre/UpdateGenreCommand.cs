@@ -5,7 +5,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using Movies.DbOperations;
 
-namespace Movies.Application.MovieOperations.Command.UpdateGenre
+namespace Movies.Application.GenreOperations.Command.UpdateGenre
 {
     public class UpdateGenreCommand
     {

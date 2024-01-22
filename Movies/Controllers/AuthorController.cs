@@ -6,50 +6,49 @@ using Movies.Dtos;
 using FluentValidation;
 using FluentValidation.Results;
 using Movies.Entities;
-using Movies.Application.GenreOperations.Queries.GetGenres;
-using Movies.Application.GenreOperations.Queries.GetGenreDetail;
-using static Movies.Application.GenreOperations.Command.CreateGenre.CreateGenreCommand;
-using Movies.Application.GenreOperations.Command.CreateGenre;
-using Movies.Application.MovieOperations.Command.UpdateGenre;
+using Movies.Application.AuthorOperations.Queries.GetAuthors;
+using Movies.Application.AuthorOperations.Queries.GetAuthorDetail;
+using static Movies.Application.AuthorOperations.Command.CreateAuthor.CreateAuthorCommand;
+using Movies.Application.AuthorOperations.Command.CreateAuthor;
+using Movies.Application.AuthorOperations.Command.UpdateAuthor;
 using Movies.Application.GenreOperations.Command.UpdateGenre;
-using Movies.Application.MovieOperations.Command.DeleteGenre;
-
+using Movies.Application.AuthorOperations.Command.DeleteAuthor;
 
 
 namespace Movies.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class GenreController : ControllerBase
+public class AuthorController : ControllerBase
 {
     private readonly MovieStoreDbContext context;
     private readonly IMapper mapper;
 
-    public GenreController(MovieStoreDbContext context, IMapper mapper)
+    public AuthorController(MovieStoreDbContext context, IMapper mapper)
     {
         this.context = context;
         this.mapper = mapper;
     }
 
     [HttpGet]
-    public IActionResult GetGenres()
+    public IActionResult GetAuthors()
     {
-        GetGenresQuery query = new(context, mapper);
+        GetAuthorsQuery query = new(context, mapper);
         var result = query.Handle();
         return Ok(result);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetGenreDetail(int id)
+    public IActionResult GetAuthorDetail(int id)
     {
-        GenreDetailViewModel result;
+        AuthorDetailViewModel result;
         try
         {
-            GetGenreDetailQuery query = new(context, mapper)
+            GetAuthorDetailQuery query = new(context, mapper)
             {
-                GenreId = id
+                AuthorId = id
             };
-            GetGenreDetailQueryValidator validator = new();
+            GetAuthorDetailQueryValidator validator = new();
             validator.ValidateAndThrow(query);
             result = query.Handle();
         }
@@ -62,13 +61,13 @@ public class GenreController : ControllerBase
 
 
     [HttpPost]
-    public IActionResult AddGenre([FromBody] CreateGenreModel genre)
+    public IActionResult AddAuthor([FromBody] CreateAuthorModel author)
     {
-        CreateGenreCommand command = new(context, mapper);
+        CreateAuthorCommand command = new(context, mapper);
         try
         {
-            command.Model = genre;
-            CreateGenreCommandValidator validator = new();
+            command.Model = author;
+            CreateAuthorCommandValidator validator = new();
             validator.ValidateAndThrow(command);
             command.Handle();
         }
@@ -81,14 +80,14 @@ public class GenreController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateGenre(int id, [FromBody] UpdateGenreModel genre)
+    public IActionResult UpdateAuthor(int id, [FromBody] UpdateAuthorModel author)
     {
         try
         {
-            UpdateGenreCommand command = new(context);
-            command.GenreId = id;
-            command.Model = genre;
-            UpdateGenreCommandValidator validator = new();
+            UpdateAuthorCommand command = new(context);
+            command.AuthorId = id;
+            command.Model = author;
+            UpdateAuthorCommandValidator validator = new();
             validator.ValidateAndThrow(command);
             command.Handle();
         }
@@ -100,15 +99,15 @@ public class GenreController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteGenre(int id)
+    public IActionResult DeleteAuthor(int id)
     {
         try
         {
-            DeleteGenreCommand command = new(context)
+            DeleteAuthorCommand command = new(context)
             {
-                GenreId = id
+                AuthorId = id
             };
-            DeleteGenreCommandValidator validator = new();
+            DeleteAuthorCommandValidator validator = new();
             validator.ValidateAndThrow(command);
             command.Handle();
         }

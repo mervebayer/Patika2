@@ -24,7 +24,7 @@ namespace Movies.Application.MovieOperations.Queries.GetMovies
 
         public List<MoviesViewModel> Handle()
         {
-            var movieList = dbContext.Movies.Include(x => x.Genre).OrderBy(x=>x.Id).ToList<Movie>();
+            var movieList = dbContext.Movies.Include(x => x.Genre).Include(x => x.Author).OrderBy(x=>x.Id).ToList<Movie>();
             List<MoviesViewModel> vm= mapper.Map<List<MoviesViewModel>>(movieList);
             // List<MoviesViewModel> vm= new List<MoviesViewModel>();
             // foreach(var movie in movieList)
@@ -43,6 +43,7 @@ namespace Movies.Application.MovieOperations.Queries.GetMovies
     public class MoviesViewModel
     {
         public string Title {get; set;}
+        public string Author {get; set;}
         public string Genre {get; set;}
         public string Language {get; set;}
         public string PublishDate {get; set;}

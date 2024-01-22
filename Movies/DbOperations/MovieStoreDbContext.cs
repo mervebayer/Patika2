@@ -11,4 +11,5 @@ public class MovieStoreDbContext : DbContext
     }
     public DbSet<Movie> Movies {get; set;}
     public DbSet<Genre> Genres {get; set;}
+    public DbSet<Author> Authors {get; set;}
 }

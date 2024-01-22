@@ -1,4 +1,5 @@
 using FluentValidation;
+using Movies.Application.GenreOperations.Command.UpdateGenre;
 using Movies.Application.MovieOperations.Command.UpdateGenre;
 
 namespace Movies.Application.MovieOperations.Command.UpdateGenre;
